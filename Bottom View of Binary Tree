@@ -1,0 +1,30 @@
+void bottomView(Node *root)
+{
+    int hd = 0;
+    map<Node *, int> mp;
+    map<int, int> m;
+    queue<Node *> q;
+    if(root == NULL) {
+        return;
+    }
+    q.push(root);
+    mp[root] = hd;
+    while(!q.empty()) {
+        Node *temp = q.front();
+        q.pop();
+        hd = mp[temp];
+        m[hd] = temp->data;
+        if(temp->left) {
+            mp[temp->left] = hd-1;
+            q.push(temp->left);
+        }
+        if(temp->right) {
+            mp[temp->right] = hd+1;
+            q.push(temp->right);
+        }
+    }
+    for(auto it = m.begin(); it != m.end(); it++) {
+        cout << it->second << " ";
+    }
+    
+}

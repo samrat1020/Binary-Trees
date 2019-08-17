@@ -1,0 +1,32 @@
+void topView(struct Node *root)
+{
+    int hd = 0;
+    map<struct Node *, int> mp;
+    map<int, int> m;
+    queue<struct Node *> q;
+    if(root == NULL) {
+        return;
+    }
+    q.push(root);
+    mp[root] = hd;
+    
+    while(!q.empty()) {
+        struct Node *temp = q.front();
+        q.pop();
+        hd = mp[temp];
+        if(m[hd] == 0) {
+            m[hd] = temp->data;
+        }
+        if(temp->left) {
+            q.push(temp->left);
+            mp[temp->left] = hd-1;
+        }
+        if(temp->right) {
+            q.push(temp->right);
+            mp[temp->right] = hd+1;
+        }
+    }
+    for(auto it = m.begin(); it != m.end(); it++) {
+        cout << it->second << " ";
+    }
+}
